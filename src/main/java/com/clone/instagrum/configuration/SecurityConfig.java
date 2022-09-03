@@ -1,4 +1,4 @@
-package com.clone.instagrum.Configuration;
+package com.clone.instagrum.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -39,6 +40,11 @@ public class SecurityConfig {
                     .loginPage("/auth/signin")//이쪽 경로로 자동 매핑
                     .defaultSuccessUrl("/"); //로그인이 정상적으로 처리되면 "/"로 리다이렉트
         return http.build();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }
