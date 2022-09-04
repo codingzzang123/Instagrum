@@ -19,6 +19,7 @@ public class CustomValidationException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
     private Map<String,String> errorMap;
+    private String msg;
 
     public CustomValidationException(String message, Map<String,String> errorMap){
         super(message);

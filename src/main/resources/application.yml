@@ -12,6 +12,11 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -39,3 +44,4 @@ spring:
 
 file:
   path: D:/workspace/CloneCoding/CloneCoding/upload-instagrum/
+

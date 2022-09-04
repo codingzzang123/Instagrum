@@ -86,6 +86,14 @@ button {
   margin-bottom: 6px;
 }
 
+.login__input div {
+  width: 100%;
+  height: auto;
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
 /*로그인 버튼*/
 .login__input button {
   border: 0;

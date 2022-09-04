@@ -28,7 +28,7 @@
 			<div class="name-group">
 				<h2>TherePrograming</h2>
 
-				<button class="cta" onclick="location.href='/image/upload'">사진등록</button>
+				<button class="cta" onclick="location.href='/main/upload'">사진등록</button>
 				<button class="cta" onclick="toggleSubscribe(this)">구독하기</button>
 				<button class="modi" onclick="popup('.modal-info')">
 					<i class="fas fa-cog"></i>
@@ -101,7 +101,7 @@
 <!--로그아웃, 회원정보변경 모달-->
 <div class="modal-info" onclick="modalInfo()">
 	<div class="modal">
-		<button onclick="location.href='/user/update'">회원정보 변경</button>
+		<button onclick="location.href='/user/${principal.user.id}/update'">회원정보 변경</button>
 		<button onclick="location.href='/logout'">로그아웃</button>
 		<button onclick="closePopup('.modal-info')">취소</button>
 	</div>

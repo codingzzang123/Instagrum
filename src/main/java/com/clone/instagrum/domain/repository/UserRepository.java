@@ -18,5 +18,7 @@ import java.util.Optional;
  */
 //@Repository 어노테이션 없어도 IoC 등록이 자동으로 됨. JpaRepo를 상속받아서
 public interface UserRepository extends JpaRepository<User,Integer> {
-//    public Optional<User> findUserByUsername(String userName);
+    Optional<User> findByUsername(String userName);
+    //JPA query method 사용
+//    User findByUsername(String username);
 }

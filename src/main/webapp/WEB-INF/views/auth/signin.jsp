@@ -24,9 +24,17 @@
                         <h1><img src="/images/logo.jpg" alt=""></h1>
                         
                         <!--로그인 인풋-->
-                        <form class="login__input" >
-                            <input type="text" name="username" placeholder="ID" required="required" />
+                        <form class="login__input" action="/auth/signin" method="post">
+                            <input type="text" name="id" placeholder="ID" required="required" />
                             <input type="password" name="password" placeholder="Password" required="required" />
+
+                            <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                                <span style="color: red; font-size:12px;">
+                                    <p>아이디, 비밀번호가 잘못되었습니다.</p>
+                                    <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+                                </span>
+                            </c:if>
+
                             <button>로그인</button>
                         </form>
                         <!--로그인 인풋end-->

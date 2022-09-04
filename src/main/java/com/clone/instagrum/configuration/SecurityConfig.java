@@ -33,12 +33,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/user/**","/image/**","/subscribe/**","/comment/**").authenticated()//인증이 필요한 페이지는 아무나 못들어감
-                    .anyRequest().permitAll()
-                .and()
-                    .formLogin()
-                    .loginPage("/auth/signin")//이쪽 경로로 자동 매핑
-                    .defaultSuccessUrl("/"); //로그인이 정상적으로 처리되면 "/"로 리다이렉트
+                .antMatchers("/","/user/**","/main/**","/subscribe/**","/comment/**").authenticated()//인증이 필요한 페이지는 아무나 못들어감
+                .anyRequest().permitAll()
+            .and()
+                .formLogin()
+                .loginPage("/auth/signin")//이쪽 경로로 자동 매핑(get) 인증이 안되어있으면
+                .loginProcessingUrl("/auth/signin") // post -> 시큐리티가 로그인 프로세스 진행
+                .usernameParameter("id") //default = "username"
+                .passwordParameter("password")
+                .defaultSuccessUrl("/"); //로그인이 정상적으로 처리되면 "/"로 리다이렉트
         return http.build();
     }
 

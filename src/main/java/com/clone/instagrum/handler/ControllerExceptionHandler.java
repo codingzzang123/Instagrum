@@ -2,6 +2,7 @@ package com.clone.instagrum.handler;
 
 import com.clone.instagrum.dto.common.ResponseDto;
 import com.clone.instagrum.handler.ex.CustomValidationException;
+import com.clone.instagrum.handler.ex.UserDuplicatedException;
 import com.clone.instagrum.util.Script;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,5 +30,10 @@ public class ControllerExceptionHandler {
 
         return Script.back(e.getErrorMap().toString());
 //        return new ResponseDto(-1,e.getMessage(),e.getErrorMap());
+    }
+
+    @ExceptionHandler(UserDuplicatedException.class)
+    public String userDuplicatedException(UserDuplicatedException e){
+        return Script.back(e.getMessage());
     }
 }

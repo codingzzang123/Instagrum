@@ -1,6 +1,5 @@
 package com.clone.instagrum.controller.auth;
 
-import com.clone.instagrum.domain.user.User;
 import com.clone.instagrum.dto.auth.SignupRequestDto;
 import com.clone.instagrum.handler.ex.CustomValidationException;
 import com.clone.instagrum.service.auth.AuthService;
@@ -30,9 +29,9 @@ import java.util.Map;
  */
 @Controller
 @RequiredArgsConstructor //final 키워드가 있는 멤버에대한 생성자를 만들어준다.
-public class AuthController {
+public class SignController {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger log = LoggerFactory.getLogger(SignController.class);
 
     private final AuthService authService;
 
@@ -51,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String signUp(@Valid SignupRequestDto srd, BindingResult bindingResult){
+    public String signUp(@Valid SignupRequestDto signupRequestDto, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             Map<String,String> errorMap = new HashMap<>();
@@ -59,16 +58,10 @@ public class AuthController {
             for(FieldError error : bindingResult.getFieldErrors()){
                 errorMap.put(error.getField(), error.getDefaultMessage());
             }
-
-            for(String str : errorMap.keySet()){
-                log.error("error : "+errorMap.get(str));
-            }
             throw new CustomValidationException("유효성 검사 실패",errorMap);
-        }else{
-            authService.signin(srd.toEntity());
-//        log.info("test : "+ authService.signin(srd.toEntity()));
-            return "redirect:signin";
         }
+        authService.signIn(signupRequestDto.toEntity());
+        return "redirect:signin";
     }
     /* key = value (x-www-form-urlencoded 방식) */
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -23,15 +24,19 @@ public class SignupRequestDto {
 
     @Size(min = 4, max = 20)
     @NotBlank
+    @Pattern(regexp ="^(?=.*[A-Za-z])[0-9a-zA-Z]{4,12}$")
     private String username; //id
 
     @NotBlank
+    @Pattern(regexp ="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{7,13}$")
     private String password;
 
     @NotBlank
+    @Pattern(regexp ="^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$")
     private String email;
 
     @NotBlank
+    @Pattern(regexp = "^[가-힣]{2,4}")
     private String name;
 
     public User toEntity(){
