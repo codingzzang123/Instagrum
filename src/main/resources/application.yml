@@ -12,6 +12,11 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -36,6 +41,16 @@ spring:
     user:
       name: test
       password: 1234
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 489715739644032
+            client-secret: fae0bb0915453ffe43fabcedd10a43fb
+            scope: #facebook에서 어떤 데이터를 받을지 범위
+              - public_profile
+              - email
+
 
 file:
   path: D:/workspace/CloneCoding/CloneCoding/upload-instagrum/
