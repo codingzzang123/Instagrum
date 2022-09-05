@@ -31,20 +31,21 @@ public class AuthService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Transactional //Write(Insert, Update, Delete)
-    public void signIn(User user){
+    @Transactional
+    public void signUp(User user){
 
         /* Back-end 검사 (중복된 아이디인지 아닌지) */
         userRepository.findByUsername(user.getUsername())
-                        .ifPresent(m -> {
-                            throw new UserDuplicatedException("중복되는 아이디입니다.");
-                        });
+                .ifPresent(m -> {
+                    throw new UserDuplicatedException("중복되는 아이디입니다.");
+                });
 
         user.setPassword(
                 bCryptPasswordEncoder.encode(user.getPassword())
         );
         user.setRole("ROLE_USER");//관리자는 "ROLE_ADMIN"
 
-        userRepository.save(user); /* <S extends T>S save(S entity) */
+        userRepository.save(user);
     }
 }
+

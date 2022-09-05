@@ -1,4 +1,4 @@
-package com.clone.instagrum.controller.user;
+package com.clone.instagrum.controller;
 
 import com.clone.instagrum.configuration.auth.PrincipalDetails;
 import org.springframework.security.core.Authentication;

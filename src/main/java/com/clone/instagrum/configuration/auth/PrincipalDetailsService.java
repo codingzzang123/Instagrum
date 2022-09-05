@@ -23,17 +23,13 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class PrincipalDetailsService implements UserDetailsService { //UserDetailsService얘가 낚아 챔
+public class PrincipalDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        /* 구현 해야 할 부분
-            1. username 이 있는지 없는지 체크 (패스워드는 알아서 체킹해주기 떄문에 신경x)
-            2. UserDetials 타입으로 리턴 -> 리턴되면 자동으로 세션을 만듦.
-            2-1
-        * */
+
         Optional<User> userEntity = userRepository.findByUsername(id);
 
         return userEntity == null ? null : new PrincipalDetails(userEntity.get());

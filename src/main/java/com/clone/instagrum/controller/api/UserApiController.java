@@ -1,4 +1,4 @@
-package com.clone.instagrum.api;
+package com.clone.instagrum.controller.api;
 
 import com.clone.instagrum.configuration.auth.PrincipalDetails;
 import com.clone.instagrum.domain.user.User;
@@ -8,10 +8,7 @@ import com.clone.instagrum.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 

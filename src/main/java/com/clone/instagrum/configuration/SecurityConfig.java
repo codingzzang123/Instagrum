@@ -1,5 +1,7 @@
 package com.clone.instagrum.configuration;
 
+import com.clone.instagrum.configuration.auth.OAuth2DetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -26,9 +28,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnDefaultWebSecurity
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final OAuth2DetailsService oAuth2DetailsService;
+
     @Bean
+    @Order(SecurityProperties.BASIC_AUTH_ORDER)
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/","/user/**","/main/**").authenticated()
+                .anyRequest().permitAll()
+            .and()
+                .formLogin()
+                .loginPage("/auth/signin")
+                .loginProcessingUrl("/auth/signin")
+                .usernameParameter("id") //default = username
+                .defaultSuccessUrl("/")
+            .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(oAuth2DetailsService);
+        return http.build();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+}
+
+/*
+     @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -41,13 +74,11 @@ public class SecurityConfig {
                 .loginProcessingUrl("/auth/signin") // post -> 시큐리티가 로그인 프로세스 진행
                 .usernameParameter("id") //default = "username"
                 .passwordParameter("password")
-                .defaultSuccessUrl("/"); //로그인이 정상적으로 처리되면 "/"로 리다이렉트
+                .defaultSuccessUrl("/") //로그인이 정상적으로 처리되면 "/"로 리다이렉트
+            .and()
+                .oauth2Login() // 일반 로그인도 하겠지만 oauth2 로그인도 함
+                .userInfoEndpoint() // oauth 로그인 최종 응답을 인증 code 가 아니라, 회원 정보를 바로 받음.
+                .userService(oAuth2DetailsService);
         return http.build();
     }
-
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-}
+* */

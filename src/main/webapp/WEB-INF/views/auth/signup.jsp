@@ -73,10 +73,7 @@
 
     function allCheck(){
 
-        if(id_check == true &&
-            password_check == true &&
-            name_check == true &&
-            email_check == true){
+        if(id_check && password_check && name_check && email_check ){
             return true;
         }else{
             return false;

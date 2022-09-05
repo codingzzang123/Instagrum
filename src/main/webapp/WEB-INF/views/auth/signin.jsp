@@ -28,12 +28,12 @@
                             <input type="text" name="id" placeholder="ID" required="required" />
                             <input type="password" name="password" placeholder="Password" required="required" />
 
-                            <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                                <span style="color: red; font-size:12px;">
-                                    <p>아이디, 비밀번호가 잘못되었습니다.</p>
-                                    <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
-                                </span>
-                            </c:if>
+<%--                            <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">--%>
+<%--                                <span style="color: red; font-size:12px;">--%>
+<%--                                    <p>아이디, 비밀번호가 잘못되었습니다.</p>--%>
+<%--                                    <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>--%>
+<%--                                </span>--%>
+<%--                            </c:if>--%>
 
                             <button>로그인</button>
                         </form>
@@ -49,7 +49,7 @@
                         
                         <!-- Oauth 소셜로그인 -->
                         <div class="login__facebook">
-                            <button>
+                            <button onclick="javascript:location.href='/oauth2/authorization/facebook'">
                                 <i class="fab fa-facebook-square"></i>
                                 <span>Facebook으로 로그인</span>
                             </button>

@@ -13,6 +13,19 @@ package com.clone.instagrum.handler.ex;
  */
 public class UserDuplicatedException extends RuntimeException{
 
+//    private static final long serialVersionUID = 1L;
+//
+//    private String message;
+//
+//    public UserDuplicatedException(String message){
+//        this.message = message;
+//    }
+//
+//    @Override
+//    public String getMessage(){
+//        return this.message;
+//    }
+
     private static final long serialVersionUID = 1L;
 
     private String message;

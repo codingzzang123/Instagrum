@@ -1,4 +1,4 @@
-package com.clone.instagrum.controller.auth;
+package com.clone.instagrum.controller;
 
 import com.clone.instagrum.dto.auth.SignupRequestDto;
 import com.clone.instagrum.handler.ex.CustomValidationException;
@@ -52,15 +52,7 @@ public class SignController {
     @PostMapping("/auth/signup")
     public String signUp(@Valid SignupRequestDto signupRequestDto, BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()){
-            Map<String,String> errorMap = new HashMap<>();
-
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            throw new CustomValidationException("유효성 검사 실패",errorMap);
-        }
-        authService.signIn(signupRequestDto.toEntity());
+        authService.signUp(signupRequestDto.toEntity());
         return "redirect:signin";
     }
     /* key = value (x-www-form-urlencoded 방식) */

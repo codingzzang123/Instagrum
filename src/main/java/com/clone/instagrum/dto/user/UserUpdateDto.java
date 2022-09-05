@@ -4,6 +4,7 @@ import com.clone.instagrum.domain.user.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 /**
  * packageName    : com.clone.instagrum.dto.user
@@ -19,9 +20,11 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class UserUpdateDto {
     @NotBlank
+    @Pattern(regexp = "^[가-힣]{2,4}")
     private String name; //필수
 
     @NotBlank
+    @Pattern(regexp ="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{7,13}$")
     private String password; //필수
     private String website;
     private String bio;

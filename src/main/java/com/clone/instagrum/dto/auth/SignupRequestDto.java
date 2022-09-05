@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 @Data //Getter , Setter
 public class SignupRequestDto {
 
-    @Size(min = 4, max = 20)
+
     @NotBlank
     @Pattern(regexp ="^(?=.*[A-Za-z])[0-9a-zA-Z]{4,12}$")
     private String username; //id

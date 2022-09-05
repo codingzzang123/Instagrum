@@ -4,9 +4,11 @@ import com.clone.instagrum.domain.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * packageName    : com.clone.instagrum.configuration.auth
@@ -20,7 +22,7 @@ import java.util.Collection;
  * 2022-09-03        Hosun              최초 생성
  */
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private static final long serialVersionUID =1L;
 
@@ -38,25 +40,14 @@ public class PrincipalDetails implements UserDetails {
         * */
 
         Collection<GrantedAuthority> collector = new ArrayList<>();
-//        collector.add(new GrantedAuthority() {
-//            @Override
-//            public String getAuthority() {
-//                return user.getRole();
-//            }
-//        });
-
         collector.add(() -> {
            return user.getRole();
         });
-
         /*
-            람다식으로 바꿨음.
-            어차피 add안에 함수를 넣고 싶은게 목적임
+            add안에 함수를 넣고 싶은게 목적이므로 람다식으로 간단하게.
             근데 자바에서는 매게변수에 함수를 못넣음(1급 객체가 아니라)
-            인터페이스나 Object를 넣을 수 있음.
-            따라서 람다식으로 함수를 넘겨 줬음.
+            인터페이스나 Object를 넣을 수 있음. 따라서 람다식으로 함수를 넘겨 줬음.
         * */
-
         return collector;
     }
 
@@ -89,4 +80,35 @@ public class PrincipalDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+//    @Override
+//    public String getName() {
+//        String name = (String)attributes.get("name");
+//        return name;
+//    }
+//
+//    @Override
+//    public Map<String, Object> getAttributes() {
+//        return attributes;
+//    }
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }
+//    private User user;
+//    private Map<String, Object> attributes;
+//
+//    public PrincipalDetails(User user) {
+//        this.user = user;
+//    }
+//
+//    public PrincipalDetails(User user, Map<String, Object> attributes) {
+//        this.user = user;
+//        this.attributes = attributes;
+//    }
